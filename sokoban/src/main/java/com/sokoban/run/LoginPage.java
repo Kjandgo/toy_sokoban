@@ -6,9 +6,9 @@ import com.sokoban.member.service.MemberService;
 import java.util.Scanner;
 
 public class LoginPage {
-    public static Boolean memberLogin() {
+    public static Boolean memberLogin(MemberService ms) {
         Scanner sc = new Scanner(System.in);
-        MemberService memberService = new MemberService();
+
         boolean flag = false;
         String id = "";
         String pwd = "";
@@ -21,8 +21,7 @@ public class LoginPage {
         System.out.print("PASSWORD : ");
         pwd = sc.nextLine();
 
-
-        return memberService.loginValidationCheck(id,pwd);
+        return ms.loginValidationCheck(id,pwd);
     }
 
     public static Member memberSignUp() {

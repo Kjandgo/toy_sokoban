@@ -8,18 +8,19 @@ import com.sokoban.stage.service.StageService;
 import java.util.Scanner;
 
 public class MainPage {
+    private static final MemberService memberService = new MemberService();
+    private static final StageService stageService = new StageService();
+    private static final RankingService rankingService = new RankingService();
+
     public static void main(String[] args) {
         /* 메인메뉴를 임시적으로 cli환경으로 제작 한 뒤 gui로 넘어갈지 말지 결정 */
-        MemberService memberService = new MemberService();
-        StageService stageService = new StageService();
-        RankingService rankingService = new RankingService();
 
         Scanner sc = new Scanner(System.in);
         boolean loginFlag = false;
 
         asciiArt();
         while (true) {
-            while (!loginFlag){
+            while (!loginFlag) {
                 System.out.println("--------------------------------------");
                 System.out.println("1. 로그인");
                 System.out.println("2. 회원 가입");
@@ -28,9 +29,9 @@ public class MainPage {
                 System.out.print("번호를 입력하세요. : ");
                 int loginInput = sc.nextInt();
                 System.out.println("--------------------------------------");
-                switch(loginInput) {
+                switch (loginInput) {
                     case 1:
-                        loginFlag = LoginPage.memberLogin();
+                        loginFlag = LoginPage.memberLogin(memberService);
                         if (loginFlag) {
                             System.out.println(SessionStorage.getMember().getName() + " 님 로그인 되었습니다.");
                             break;
@@ -65,7 +66,7 @@ public class MainPage {
                 case 2:
                     break;
                 case 3:
-                    MemberPage.findMemberInfo();
+                    MemberPage.findMemberInfo(memberService);
                     break;
                 case 4:
                     memberService.logoutCheck();

@@ -5,7 +5,7 @@ import com.sokoban.member.repository.MemberRepository;
 import com.sokoban.session.SessionStorage;
 
 public class MemberService {
-    MemberRepository memberRepository = new MemberRepository();
+    private final MemberRepository memberRepository = new MemberRepository();
 
     public boolean loginValidationCheck(String id, String pwd) {
         Member returnMember = memberRepository.checkLoginValidation(id, pwd);
@@ -31,6 +31,31 @@ public class MemberService {
         if (flag == 1) System.out.println("회원 가입 처리 완료");
         else {
             System.out.println("회원가입이 실패 했습니다.");
+        }
+    }
+
+    public void modifyMemberInfo(String modifyValue, String modifyColumn) {
+        Member member = SessionStorage.getMember();
+
+        switch (modifyColumn) {
+            case "id":
+                member.setId(modifyValue);
+                break;
+            case "pwd":
+                member.setPwd(modifyValue);
+                break;
+            case "name":
+                member.setName(modifyValue);
+                break;
+        }
+
+        int flag = memberRepository.modifyMemberInfo(member,modifyColumn);
+
+        if(flag>0){
+            System.out.println("회원 정보가 수정되었습니다.");
+        }
+        else {
+            System.out.println("회원 정보가 수정에 실패했습니다.");
         }
     }
 }
