@@ -1,6 +1,7 @@
 package com.sokoban.member.repository;
 
 import com.sokoban.member.aggregate.Member;
+import com.sokoban.stream.MyOutPut;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -37,22 +38,45 @@ public class MemberRepository {
         }
     }
 
+    private int setMemberByNonHeader(Member registMember) {
+        int flag = 0;
+        MyOutPut moo = null;
+        try {
+            moo = new MyOutPut(new BufferedOutputStream(new FileOutputStream(file,true)));
+            moo.writeObject(registMember);
+            moo.flush();
+
+            members.clear();
+            getMember();
+            flag=1;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (moo != null) moo.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return flag;
+    }
+
     private void getMember() {
         ObjectInputStream ois = null;
         try {
             ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
-            while(true){
-                members.add((Member)ois.readObject());
+            while (true) {
+                members.add((Member) ois.readObject());
             }
-        } catch(EOFException e){
+        } catch (EOFException e) {
             System.out.println("getMember");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
-        }catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
-        }finally{
+        } finally {
             try {
-                if(ois!=null)ois.close();
+                if (ois != null) ois.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -61,12 +85,18 @@ public class MemberRepository {
 
     public boolean checkLoginValidation(String id, String pwd) {
         boolean flag = false;
-        for(Member member : members){
-            if(member.getId().equals(id) && member.getPwd().equals(pwd)){
+        for (Member member : members) {
+            if (member.getId().equals(id) && member.getPwd().equals(pwd)) {
                 flag = true;
                 break;
             }
         }
         return flag;
+    }
+
+    public int registMember(Member registMember) {
+        registMember.setMemberNo(members.size() + 1);
+        members.add(registMember);
+        return setMemberByNonHeader(registMember);
     }
 }
