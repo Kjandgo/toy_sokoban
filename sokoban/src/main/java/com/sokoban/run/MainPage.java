@@ -2,6 +2,7 @@ package com.sokoban.run;
 
 import com.sokoban.member.service.MemberService;
 import com.sokoban.ranking.service.RankingService;
+import com.sokoban.session.SessionStorage;
 import com.sokoban.stage.service.StageService;
 
 import java.util.Scanner;
@@ -29,10 +30,9 @@ public class MainPage {
                 System.out.println("--------------------------------------");
                 switch(loginInput) {
                     case 1:
-                        String[] loginArr = LoginPage.memberLogin().clone();
-                        loginFlag = memberService.loginValidationCheck(loginArr[0], loginArr[1]);
+                        loginFlag = LoginPage.memberLogin();
                         if (loginFlag) {
-                            System.out.println("로그인 되었습니다.");
+                            System.out.println(SessionStorage.getMember().getName() + " 님 로그인 되었습니다.");
                             break;
                         } else {
                             System.out.println("일치하는 회원이 없습니다.");
@@ -44,8 +44,9 @@ public class MainPage {
                     case 0:
                         System.out.println("게임을 종료합니다.");
                         return;
+                    default:
+                        System.out.println("잘못된 값을 입력했습니다.");
                 }
-
             }
 
             System.out.println("--------------------------------------");
@@ -64,8 +65,10 @@ public class MainPage {
                 case 2:
                     break;
                 case 3:
+                    MemberPage.findMemberInfo();
                     break;
                 case 4:
+                    memberService.logoutCheck();
                     System.out.println("로그아웃");
                     loginFlag = false;
                     break;
