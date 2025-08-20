@@ -16,7 +16,7 @@ public class MainPage {
         Scanner sc = new Scanner(System.in);
         boolean loginFlag = false;
         while (true) {
-            System.out.println("------소코반------");
+            asciiArt();
             while (!loginFlag) {
                 String[] loginArr = LoginPage.memberLogin().clone();
                 loginFlag = memberService.loginValidationCheck(loginArr[0], loginArr[1]);
@@ -52,4 +52,16 @@ public class MainPage {
             }
         }
     }
+    private static void asciiArt(){
+        System.out.println("\n" +
+                " _____  _____  _   __ _____ ______   ___   _   _ \n" +
+                "/  ___||  _  || | / /|  _  || ___ \\ / _ \\ | \\ | |\n" +
+                "\\ `--. | | | || |/ / | | | || |_/ // /_\\ \\|  \\| |\n" +
+                " `--. \\| | | ||    \\ | | | || ___ \\|  _  || . ` |\n" +
+                "/\\__/ /\\ \\_/ /| |\\  \\\\ \\_/ /| |_/ /| | | || |\\  |\n" +
+                "\\____/  \\___/ \\_| \\_/ \\___/ \\____/ \\_| |_/\\_| \\_/\n" +
+                "                                                 \n");
+
+    }
 }
+
