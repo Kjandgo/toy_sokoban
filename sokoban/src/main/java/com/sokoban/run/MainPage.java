@@ -64,6 +64,7 @@ public class MainPage {
                 case 1:
                     break;
                 case 2:
+                    RankingPage.findRankingInfo(rankingService);
                     break;
                 case 3:
                     MemberPage.findMemberInfo(memberService);

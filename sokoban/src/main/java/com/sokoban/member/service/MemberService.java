@@ -7,6 +7,8 @@ import com.sokoban.session.SessionStorage;
 public class MemberService {
     private final MemberRepository memberRepository = new MemberRepository();
 
+    public MemberService(){}
+
     public boolean loginValidationCheck(String id, String pwd) {
         Member returnMember = memberRepository.checkLoginValidation(id, pwd);
         if (SessionStorage.getMember() == null) {

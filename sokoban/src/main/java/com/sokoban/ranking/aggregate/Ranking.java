@@ -1,8 +1,9 @@
 package com.sokoban.ranking.aggregate;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-public class Ranking implements Serializable {
+public class Ranking implements Serializable,Comparable<Ranking> {
     private int rankingNo;
     private String name;
     private int highestStageNo;
@@ -47,5 +48,22 @@ public class Ranking implements Serializable {
                 ", name='" + name + '\'' +
                 ", highestStageNo=" + highestStageNo +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Ranking ranking = (Ranking) o;
+        return rankingNo == ranking.rankingNo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(rankingNo);
+    }
+
+    @Override
+    public int compareTo(Ranking o) {
+        return this.rankingNo - o.rankingNo;
     }
 }
