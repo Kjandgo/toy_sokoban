@@ -15,27 +15,49 @@ public class MainPage {
 
         Scanner sc = new Scanner(System.in);
         boolean loginFlag = false;
+
+        asciiArt();
         while (true) {
-            asciiArt();
-            while (!loginFlag) {
-                String[] loginArr = LoginPage.memberLogin().clone();
-                loginFlag = memberService.loginValidationCheck(loginArr[0], loginArr[1]);
-                if (loginFlag) {
-                    System.out.println("로그인 되었습니다.");
-                    break;
-                } else {
-                    System.out.println("회원 정보를 다시 입력해주십시오");
+            while (!loginFlag){
+                System.out.println("--------------------------------------");
+                System.out.println("1. 로그인");
+                System.out.println("2. 회원 가입");
+                System.out.println("0. 나가기");
+                System.out.println("--------------------------------------");
+                System.out.print("번호를 입력하세요. : ");
+                int loginInput = sc.nextInt();
+                System.out.println("--------------------------------------");
+                switch(loginInput) {
+                    case 1:
+                        String[] loginArr = LoginPage.memberLogin().clone();
+                        loginFlag = memberService.loginValidationCheck(loginArr[0], loginArr[1]);
+                        if (loginFlag) {
+                            System.out.println("로그인 되었습니다.");
+                            break;
+                        } else {
+                            System.out.println("일치하는 회원이 없습니다.");
+                        }
+                        break;
+                    case 2:
+                        memberService.registMember(LoginPage.memberSignUp());
+                        break;
+                    case 0:
+                        System.out.println("게임을 종료합니다.");
+                        return;
                 }
+
             }
 
-            System.out.println("------------------------------");
+            System.out.println("--------------------------------------");
             System.out.println("1. 게임 시작");
             System.out.println("2. 랭킹");
             System.out.println("3. 개인 정보");
+            System.out.println("4. 로그아웃");
             System.out.println("0. 나가기");
-            System.out.println("------------------------------");
+            System.out.println("--------------------------------------");
             System.out.print("번호를 입력하세요. : ");
             int input = sc.nextInt();
+            System.out.println("--------------------------------------");
             switch (input) {
                 case 1:
                     break;
@@ -43,16 +65,20 @@ public class MainPage {
                     break;
                 case 3:
                     break;
+                case 4:
+                    System.out.println("로그아웃");
+                    loginFlag = false;
+                    break;
                 case 0:
                     System.out.println("게임을 종료합니다.");
                     return;
                 default:
                     System.out.println("잘못된 값을 입력했습니다.");
-
             }
         }
     }
-    private static void asciiArt(){
+
+    private static void asciiArt() {
         System.out.println("\n" +
                 " _____  _____  _   __ _____ ______   ___   _   _ \n" +
                 "/  ___||  _  || | / /|  _  || ___ \\ / _ \\ | \\ | |\n" +
