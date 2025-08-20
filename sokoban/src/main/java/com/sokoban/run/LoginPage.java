@@ -1,26 +1,27 @@
 package com.sokoban.run;
 
 import com.sokoban.member.aggregate.Member;
+import com.sokoban.member.service.MemberService;
 
 import java.util.Scanner;
 
 public class LoginPage {
-    public static String[] memberLogin() {
+    public static Boolean memberLogin(MemberService ms) {
         Scanner sc = new Scanner(System.in);
+
         boolean flag = false;
         String id = "";
         String pwd = "";
-        String[] result = new String[2];
 
         System.out.println("회원정보를 입력하세요");
 
         System.out.print("ID : ");
-        result[0] = sc.nextLine();
+        id = sc.nextLine();
 
         System.out.print("PASSWORD : ");
-        result[1] = sc.nextLine();
+        pwd = sc.nextLine();
 
-        return result;
+        return ms.loginValidationCheck(id,pwd);
     }
 
     public static Member memberSignUp() {

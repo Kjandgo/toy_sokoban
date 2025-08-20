@@ -2,23 +2,25 @@ package com.sokoban.run;
 
 import com.sokoban.member.service.MemberService;
 import com.sokoban.ranking.service.RankingService;
+import com.sokoban.session.SessionStorage;
 import com.sokoban.stage.service.StageService;
 
 import java.util.Scanner;
 
 public class MainPage {
+    private static final MemberService memberService = new MemberService();
+    private static final StageService stageService = new StageService();
+    private static final RankingService rankingService = new RankingService();
+
     public static void main(String[] args) {
         /* 메인메뉴를 임시적으로 cli환경으로 제작 한 뒤 gui로 넘어갈지 말지 결정 */
-        MemberService memberService = new MemberService();
-        StageService stageService = new StageService();
-        RankingService rankingService = new RankingService();
 
         Scanner sc = new Scanner(System.in);
         boolean loginFlag = false;
 
         asciiArt();
         while (true) {
-            while (!loginFlag){
+            while (!loginFlag) {
                 System.out.println("--------------------------------------");
                 System.out.println("1. 로그인");
                 System.out.println("2. 회원 가입");
@@ -27,12 +29,11 @@ public class MainPage {
                 System.out.print("번호를 입력하세요. : ");
                 int loginInput = sc.nextInt();
                 System.out.println("--------------------------------------");
-                switch(loginInput) {
+                switch (loginInput) {
                     case 1:
-                        String[] loginArr = LoginPage.memberLogin().clone();
-                        loginFlag = memberService.loginValidationCheck(loginArr[0], loginArr[1]);
+                        loginFlag = LoginPage.memberLogin(memberService);
                         if (loginFlag) {
-                            System.out.println("로그인 되었습니다.");
+                            System.out.println(SessionStorage.getMember().getName() + " 님 로그인 되었습니다.");
                             break;
                         } else {
                             System.out.println("일치하는 회원이 없습니다.");
@@ -44,8 +45,9 @@ public class MainPage {
                     case 0:
                         System.out.println("게임을 종료합니다.");
                         return;
+                    default:
+                        System.out.println("잘못된 값을 입력했습니다.");
                 }
-
             }
 
             System.out.println("--------------------------------------");
@@ -64,8 +66,10 @@ public class MainPage {
                 case 2:
                     break;
                 case 3:
+                    MemberPage.findMemberInfo(memberService);
                     break;
                 case 4:
+                    memberService.logoutCheck();
                     System.out.println("로그아웃");
                     loginFlag = false;
                     break;

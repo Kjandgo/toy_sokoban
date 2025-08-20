@@ -1,6 +1,7 @@
 package com.sokoban.member.repository;
 
 import com.sokoban.member.aggregate.Member;
+import com.sokoban.session.SessionStorage;
 import com.sokoban.stream.MyOutPut;
 
 import java.io.*;
@@ -83,20 +84,43 @@ public class MemberRepository {
         }
     }
 
-    public boolean checkLoginValidation(String id, String pwd) {
-        boolean flag = false;
+    public Member checkLoginValidation(String id, String pwd) {
+        Member returnMember=null;
         for (Member member : members) {
             if (member.getId().equals(id) && member.getPwd().equals(pwd)) {
-                flag = true;
+                returnMember = member;
                 break;
             }
         }
-        return flag;
+        return returnMember;
     }
 
     public int registMember(Member registMember) {
         registMember.setMemberNo(members.size() + 1);
         members.add(registMember);
         return setMemberByNonHeader(registMember);
+    }
+
+    public int modifyMemberInfo(Member modifyMember,String modifyColumn) {
+        for (Member member : members) {
+            if (member.getMemberNo() == modifyMember.getMemberNo()) {
+                switch (modifyColumn) {
+                    case "id":
+                        member.setId(modifyMember.getId());
+                        break;
+                    case "pwd":
+                        member.setPwd(modifyMember.getPwd());
+                        break;
+                    case "name":
+                        member.setName(modifyMember.getName());
+                        break;
+                }
+
+                setMember(members);
+                SessionStorage.setMember(member);
+                return 1;
+            }
+        }
+        return 0;
     }
 }
