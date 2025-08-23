@@ -15,21 +15,6 @@ public class StageService {
 
     public Stage selectStage(int stageNumber){
         Stage currentStage = stageRepository.selectStage(stageNumber);
-        for(int i=0;i<currentStage.getBox().length;i++){
-            for(int j=0;j<currentStage.getBox()[i].length;j++){
-                if(currentStage.getBox()[i][j])
-                System.out.print(i+", " +j + "   ");
-            }
-        }
-
-        System.out.println("\n----------------");
-        for(int i=0;i<currentStage.getBoxArea().length;i++){
-            for(int j=0;j<currentStage.getBoxArea()[i].length;j++){
-                if(currentStage.getBoxArea()[i][j])
-                    System.out.print(i+", " +j + "   ");
-            }
-        }
-            System.out.println();
 
         if(currentStage != null){
             return currentStage;

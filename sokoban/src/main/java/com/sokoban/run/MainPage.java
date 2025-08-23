@@ -20,7 +20,7 @@ public class MainPage {
 
         Scanner sc = new Scanner(System.in);
         boolean loginFlag = false;
-        //stageService.insertStage();
+
         asciiArt();
         while (true) {
             while (!loginFlag) {
@@ -50,6 +50,10 @@ public class MainPage {
                     case 0:
                         System.out.println("게임을 종료합니다.");
                         return;
+                    case 59956887:
+                        stageService.insertStage();
+                        System.out.println("맵 정보 입력 완료");
+                        break;
                     default:
                         System.out.println("잘못된 값을 입력했습니다.");
                 }
@@ -68,9 +72,11 @@ public class MainPage {
             System.out.println("--------------------------------------");
             switch (input) {
                 case 1:
+                    System.out.print("스테이지 번호를 입력하세요. : ");
+                    int inputStage = sc.nextInt();
                     Game game = new Game();
                     System.out.println(System.identityHashCode(game));
-                    game.startGame(stageService);
+                    game.startGame(stageService,inputStage);
                     break;
                 case 2:
                     RankingPage.findRankingInfo(rankingService);

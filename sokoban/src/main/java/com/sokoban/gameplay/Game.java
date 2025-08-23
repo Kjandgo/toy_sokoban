@@ -20,9 +20,9 @@ public class Game {
         boxCount = 0;
     }
 
-    public void startGame(StageService ss) {
+    public void startGame(StageService ss,int stageNum) {
         Scanner sc = new Scanner(System.in);
-        Stage stage = ss.selectStage(1);
+        Stage stage = ss.selectStage(stageNum);
         char[][] stageMap = stage.getStageMap();
         for(int i=0;i<20;i++){
             box[i] = stage.getBox()[i].clone();
@@ -47,7 +47,6 @@ public class Game {
         }
         asciiArt();
 
-        stage = null;
     }
 
     private static boolean drawMap(char[][] stageMap) {
