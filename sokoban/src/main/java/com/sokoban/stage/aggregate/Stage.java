@@ -5,12 +5,13 @@ import java.util.Arrays;
 
 public class Stage implements Serializable {
     private int stageNo;
-    private int[][] stageMap;
+    private char[][] stageMap;
+
 
     public Stage() {
     }
 
-    public Stage(int stageNo, int[][] stageMap) {
+    public Stage(int stageNo, char[][] stageMap) {
         this.stageNo = stageNo;
         this.stageMap = stageMap;
     }
@@ -23,11 +24,11 @@ public class Stage implements Serializable {
         this.stageNo = stageNo;
     }
 
-    public int[][] getStageMap() {
+    public char[][] getStageMap() {
         return stageMap;
     }
 
-    public void setStageMap(int[][] stageMap) {
+    public void setStageMap(char[][] stageMap) {
         this.stageMap = stageMap;
     }
 

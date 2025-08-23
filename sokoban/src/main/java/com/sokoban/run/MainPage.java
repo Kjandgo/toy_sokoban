@@ -1,23 +1,26 @@
 package com.sokoban.run;
 
+import com.sokoban.gameplay.Game;
 import com.sokoban.member.service.MemberService;
 import com.sokoban.ranking.service.RankingService;
 import com.sokoban.session.SessionStorage;
+import com.sokoban.stage.repository.StageRepository;
 import com.sokoban.stage.service.StageService;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MainPage {
     private static final MemberService memberService = new MemberService();
     private static final StageService stageService = new StageService();
     private static final RankingService rankingService = new RankingService();
+    private static final Game game = new Game();
 
     public static void main(String[] args) {
-        /* 메인메뉴를 임시적으로 cli환경으로 제작 한 뒤 gui로 넘어갈지 말지 결정 */
 
         Scanner sc = new Scanner(System.in);
         boolean loginFlag = false;
-
+        //stageService.insertStage();
         asciiArt();
         while (true) {
             while (!loginFlag) {
@@ -26,8 +29,10 @@ public class MainPage {
                 System.out.println("2. 회원 가입");
                 System.out.println("0. 나가기");
                 System.out.println("--------------------------------------");
+
                 System.out.print("번호를 입력하세요. : ");
                 int loginInput = sc.nextInt();
+
                 System.out.println("--------------------------------------");
                 switch (loginInput) {
                     case 1:
@@ -49,7 +54,6 @@ public class MainPage {
                         System.out.println("잘못된 값을 입력했습니다.");
                 }
             }
-
             System.out.println("--------------------------------------");
             System.out.println("1. 게임 시작");
             System.out.println("2. 랭킹");
@@ -57,11 +61,14 @@ public class MainPage {
             System.out.println("4. 로그아웃");
             System.out.println("0. 나가기");
             System.out.println("--------------------------------------");
+
             System.out.print("번호를 입력하세요. : ");
             int input = sc.nextInt();
+
             System.out.println("--------------------------------------");
             switch (input) {
                 case 1:
+                    game.startGame(stageService);
                     break;
                 case 2:
                     RankingPage.findRankingInfo(rankingService);
@@ -75,12 +82,18 @@ public class MainPage {
                     loginFlag = false;
                     break;
                 case 0:
+                    memberService.logoutCheck();
                     System.out.println("게임을 종료합니다.");
                     return;
                 default:
                     System.out.println("잘못된 값을 입력했습니다.");
             }
         }
+    }
+
+    private static void clearConsole() {
+            for (int i = 0; i < 80; i++)
+                System.out.println("");
     }
 
     private static void asciiArt() {
@@ -92,7 +105,6 @@ public class MainPage {
                 "/\\__/ /\\ \\_/ /| |\\  \\\\ \\_/ /| |_/ /| | | || |\\  |\n" +
                 "\\____/  \\___/ \\_| \\_/ \\___/ \\____/ \\_| |_/\\_| \\_/\n" +
                 "                                                 \n");
-
     }
 }
 
