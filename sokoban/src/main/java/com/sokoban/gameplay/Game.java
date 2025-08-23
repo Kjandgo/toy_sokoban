@@ -24,14 +24,13 @@ public class Game {
         Scanner sc = new Scanner(System.in);
         Stage stage = ss.selectStage(1);
         char[][] stageMap = stage.getStageMap();
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 20; j++) {
-                System.out.print(stageMap[i][j]);
-            }
-            System.out.println();
+        for(int i=0;i<20;i++){
+            box[i] = stage.getBox()[i].clone();
+            boxArea[i] = stage.getBoxArea()[i].clone();
         }
-
-        getBox(stageMap);
+        player_x = stage.getPlayerXAxis();
+        player_y = stage.getPlayerYAxis();
+        boxCount = stage.getBoxCount();
 
         while (true) {
             clearConsole();
@@ -48,6 +47,7 @@ public class Game {
         }
         asciiArt();
 
+        stage = null;
     }
 
     private static boolean drawMap(char[][] stageMap) {
@@ -70,27 +70,7 @@ public class Game {
         return false;
     }
 
-    private static void getBox(char[][] stageMap) {
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 20; j++) {
-                if (stageMap[i][j] == '⊙') {
-                    player_x = i;
-                    player_y = j;
-                    stageMap[i][j] = ' ';
-                } else if (stageMap[i][j] == '○') {
-                    boxArea[i][j] = true;
-                    boxCount++;
-                    stageMap[i][j] = ' ';
-                } else if (stageMap[i][j] == '●') {
-                    box[i][j] = true;
-                    stageMap[i][j] = ' ';
-                }
-            }
-        }
-    }
-
     private void movePlayer(String s, char[][] stageMap) {
-        stageMap[player_x][player_y] = ' ';
         switch (s) {
             case "w":
                 if (checkMoveableX(stageMap, -1)) {
@@ -115,7 +95,6 @@ public class Game {
             default:
                 System.out.println("잘못된 입력");
         }
-
     }
 
     private boolean checkMoveableX(char[][] stageMap, int playerDisx) {
