@@ -14,7 +14,7 @@ public class MainPage {
     private static final MemberService memberService = new MemberService();
     private static final StageService stageService = new StageService();
     private static final RankingService rankingService = new RankingService();
-    private static final Game game = new Game();
+
 
     public static void main(String[] args) {
 
@@ -68,6 +68,8 @@ public class MainPage {
             System.out.println("--------------------------------------");
             switch (input) {
                 case 1:
+                    Game game = new Game();
+                    System.out.println(System.identityHashCode(game));
                     game.startGame(stageService);
                     break;
                 case 2:

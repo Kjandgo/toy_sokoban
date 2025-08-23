@@ -6,9 +6,12 @@ import com.sokoban.stage.repository.StageRepository;
 public class StageService {
     private final StageRepository stageRepository = new StageRepository();
 
-    public void insertStage(){
-        stageRepository.insertStage();
+    public StageService() {
     }
+
+//    public void insertStage(){
+//        stageRepository.insertStage();
+//    }
 
     public Stage selectStage(int stageNumber){
         Stage currentStage = stageRepository.selectStage(stageNumber);
