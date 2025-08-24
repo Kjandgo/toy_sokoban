@@ -45,7 +45,7 @@ public class Game {
              * ⊙ : 플레이어
              * */
         }
-        asciiArt();
+        asciiStageClear();
 
     }
 
@@ -95,12 +95,12 @@ public class Game {
                 System.out.println("잘못된 입력");
         }
     }
-
+    
     private boolean checkMoveableX(char[][] stageMap, int playerDisx) {
         if (stageMap[player_x + playerDisx][player_y] == '■') return false;
         else if (box[player_x + playerDisx][player_y]) {
-            if (stageMap[player_x + playerDisx + playerDisx][player_y] == ' ' ||
-                    boxArea[player_x + playerDisx + playerDisx][player_y]) {
+            if (!box[player_x + playerDisx + playerDisx][player_y] && (stageMap[player_x + playerDisx + playerDisx][player_y] == ' ' ||
+                    boxArea[player_x + playerDisx + playerDisx][player_y])) {
                 box[player_x + playerDisx][player_y] = false;
                 box[player_x + playerDisx + playerDisx][player_y] = true;
                 return true;
@@ -111,8 +111,8 @@ public class Game {
     private boolean checkMoveableY(char[][] stageMap, int playerDisy) {
         if (stageMap[player_x][player_y + playerDisy] == '■') return false;
         else if (box[player_x][player_y + playerDisy]) {
-            if (stageMap[player_x][player_y + playerDisy + playerDisy] == ' ' ||
-                    boxArea[player_x][player_y + playerDisy + playerDisy]) {
+            if (!box[player_x][player_y + playerDisy + playerDisy] && (stageMap[player_x][player_y + playerDisy + playerDisy] == ' ' ||
+                    boxArea[player_x][player_y + playerDisy + playerDisy])) {
                 box[player_x][player_y + playerDisy] = false;
                 box[player_x][player_y + playerDisy + playerDisy] = true;
                 return true;
@@ -124,7 +124,7 @@ public class Game {
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
 
-    void asciiArt(){
+    void asciiStageClear(){
         System.out.println("    _____  _____   ___   _____  _____ \n" +
                 "   /  ___||_   _| / _ \\ |  __ \\|  ___|\n" +
                 "   \\ `--.   | |  / /_\\ \\| |  \\/| |__  \n" +

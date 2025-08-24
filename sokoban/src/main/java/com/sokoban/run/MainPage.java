@@ -21,7 +21,7 @@ public class MainPage {
         Scanner sc = new Scanner(System.in);
         boolean loginFlag = false;
 
-        asciiArt();
+        asciiSokoban();
         while (true) {
             while (!loginFlag) {
                 System.out.println("--------------------------------------");
@@ -104,7 +104,7 @@ public class MainPage {
                 System.out.println("");
     }
 
-    private static void asciiArt() {
+    private static void asciiSokoban() {
         System.out.println("\n" +
                 " _____  _____  _   __ _____ ______   ___   _   _ \n" +
                 "/  ___||  _  || | / /|  _  || ___ \\ / _ \\ | \\ | |\n" +
