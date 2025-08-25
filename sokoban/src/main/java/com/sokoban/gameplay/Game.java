@@ -95,7 +95,7 @@ public class Game {
                 System.out.println("잘못된 입력");
         }
     }
-    
+
     private boolean checkMoveableX(char[][] stageMap, int playerDisx) {
         if (stageMap[player_x + playerDisx][player_y] == '■') return false;
         else if (box[player_x + playerDisx][player_y]) {

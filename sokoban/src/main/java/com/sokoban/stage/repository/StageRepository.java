@@ -15,6 +15,8 @@ public class StageRepository {
     }
 
     private void setStage(ArrayList<Stage> stageArr) {
+        System.out.println("내보내기 전 stages 컬렉션에 맵 10개 확인: ");
+        stageArr.stream().forEach((System.out::println));
         ObjectOutputStream moo = null;
         try {
             moo = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
@@ -59,6 +61,7 @@ public class StageRepository {
     }
 
     public void insertStage() {
+        stages.clear();
         stage1Map();
         stage2Map();
         stage3Map();
@@ -69,11 +72,13 @@ public class StageRepository {
         stage8Map();
         stage9Map();
         stage10Map();
+        setStage(stages);
         getStage();
     }
 
     private void stage10Map() {
         // -----------------------------------------------------------------------------------------------------
+        System.out.println("stageMapInsertion-------10");
         Stage stage = new Stage();
         stage.setStageNo(10);
         char[][] arr = new char[][]{
@@ -126,6 +131,7 @@ public class StageRepository {
     }
     private void stage9Map() {
         // -----------------------------------------------------------------------------------------------------
+        System.out.println("stageMapInsertion-------9");
         Stage stage = new Stage();
         stage.setStageNo(9);
         char[][] arr = new char[][]{
@@ -180,6 +186,7 @@ public class StageRepository {
     }
     private void stage8Map() {
         // -----------------------------------------------------------------------------------------------------
+        System.out.println("stageMapInsertion-------8");
         Stage stage = new Stage();
         stage.setStageNo(8);
         char[][] arr = new char[][]{
@@ -236,6 +243,7 @@ public class StageRepository {
     }
     private void stage7Map() {
         // -----------------------------------------------------------------------------------------------------
+        System.out.println("stageMapInsertion-------7");
         Stage stage = new Stage();
         stage.setStageNo(7);
         char[][] arr = new char[][]{
@@ -290,6 +298,7 @@ public class StageRepository {
     }
     private void stage6Map() {
         // -----------------------------------------------------------------------------------------------------
+        System.out.println("stageMapInsertion-------6");
         Stage stage = new Stage();
         stage.setStageNo(6);
         char[][] arr = new char[][]{
@@ -344,6 +353,7 @@ public class StageRepository {
     }
     private void stage5Map() {
         // -----------------------------------------------------------------------------------------------------
+        System.out.println("stageMapInsertion-------5");
         Stage stage = new Stage();
         stage.setStageNo(5);
         char[][] arr = new char[][]{
@@ -394,6 +404,7 @@ public class StageRepository {
     }
     private void stage4Map() {
         // -----------------------------------------------------------------------------------------------------
+        System.out.println("stageMapInsertion-------4");
         Stage stage = new Stage();
         stage.setStageNo(4);
         char[][] arr = new char[][]{
@@ -448,6 +459,7 @@ public class StageRepository {
     }
     private void stage3Map() {
         // -----------------------------------------------------------------------------------------------------
+        System.out.println("stageMapInsertion-------3");
         Stage stage = new Stage();
         stage.setStageNo(3);
         char[][] arr = new char[][]{
@@ -496,12 +508,12 @@ public class StageRepository {
         stage.setBoxCount(4);
         stage.setStageMap(arr);
         stages.add(stage);
-        setStage(stages);
         // -----------------------------------------------------------------------------------------------------
     }
 
     private void stage2Map() {
         // -----------------------------------------------------------------------------------------------------
+        System.out.println("stageMapInsertion-------2");
         Stage stage = new Stage();
         stage.setStageNo(2);
         char[][] arr = new char[][]{
@@ -553,6 +565,7 @@ public class StageRepository {
 
     private void stage1Map() {
         // -----------------------------------------------------------------------------------------------------
+        System.out.println("stageMapInsertion-------1");
         Stage stage = new Stage();
         stage.setStageNo(1);
         char[][] arr = new char[][]{
