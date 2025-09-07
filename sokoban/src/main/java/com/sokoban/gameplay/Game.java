@@ -3,14 +3,21 @@ package com.sokoban.gameplay;
 import com.sokoban.stage.aggregate.Stage;
 import com.sokoban.stage.service.StageService;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Scanner;
 
-public class Game {
+public class Game extends JFrame implements KeyListener {
     private static int player_x;
     private static int player_y;
     private static boolean[][] box = null;
     private static boolean[][] boxArea = null;
     private static int boxCount;
+    private static int moveCount = 0;
+    private boolean clearFlag = false;
+    private JTextArea ta;
 
     public Game() {
         player_x=0;
@@ -32,10 +39,21 @@ public class Game {
         player_y = stage.getPlayerYAxis();
         boxCount = stage.getBoxCount();
 
+
+//        setSize(1,1);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        ta = new JTextArea();
+//        setLayout(new BorderLayout());
+//        add(ta);
+//        setVisible(true);
+//        ta.addKeyListener(this);      // 키입력 비동기 처리 넘모 어렵구욘
+
         while (true) {
             clearConsole();
-            if(drawMap(stageMap)) break;
+            if(clearFlag = drawMap(stageMap)) break;
+            System.out.println("상, 하, 좌, 우 : w, a, s ,d / 포기하기 : q              이동횟수 : " + moveCount);
             String s = sc.nextLine();
+            if("q".equals(s)) break;
             movePlayer(s, stageMap);
             /*
              * ● : 상자
@@ -45,7 +63,9 @@ public class Game {
              * ⊙ : 플레이어
              * */
         }
-        asciiStageClear();
+        if(clearFlag)asciiStageClear();
+        else asciiStageFailed();
+        System.out.println("총 이동횟수 : " + moveCount);
 
     }
 
@@ -74,21 +94,25 @@ public class Game {
             case "w":
                 if (checkMoveableX(stageMap, -1)) {
                     player_x = player_x - 1;
+                    moveCount++;
                 }
                 break;
             case "a":
                 if (checkMoveableY(stageMap, -1)) {
                     player_y = player_y - 1;
+                    moveCount++;
                 }
                 break;
             case "s":
                 if (checkMoveableX(stageMap, 1)) {
                     player_x = player_x + 1;
+                    moveCount++;
                 }
                 break;
             case "d":
                 if (checkMoveableY(stageMap, 1)) {
                     player_y = player_y + 1;
+                    moveCount++;
                 }
                 break;
             default:
@@ -140,4 +164,48 @@ public class Game {
                 " \\____/\\_____/\\____/ \\_| |_/\\_| \\_|(_)(_)");
     }
 
+    void asciiStageFailed(){
+        System.out.println("    _____  _____   ___   _____  _____ \n" +
+                "   /  ___||_   _| / _ \\ |  __ \\|  ___|\n" +
+                "   \\ `--.   | |  / /_\\ \\| |  \\/| |__  \n" +
+                "    `--. \\  | |  |  _  || | __ |  __| \n" +
+                "   /\\__/ /  | |  | | | || |_\\ \\| |___ \n" +
+                "   \\____/   \\_/  \\_| |_/ \\____/\\____/ \n" +
+                "                                   ");
+        System.out.println("______   ___   _____  _      _____ ______  _  _ \n" +
+                "|  ___| / _ \\ |_   _|| |    |  ___||  _  \\| || |\n" +
+                "| |_   / /_\\ \\  | |  | |    | |__  | | | || || |\n" +
+                "|  _|  |  _  |  | |  | |    |  __| | | | || || |\n" +
+                "| |    | | | | _| |_ | |____| |___ | |/ / |_||_|\n" +
+                "\\_|    \\_| |_/ \\___/ \\_____/\\____/ |___/  (_)(_)\n" +
+                "                                                ");
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println("KeyCode: " + e.getKeyCode());
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            System.out.println("위쪽 화살표 누름");
+
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            System.out.println("아래쪽 화살표 누름");
+
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            System.out.println("왼쪽 화살표 누름");
+
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            System.out.println("오른쪽 화살표 누름");
+
+        }
+    }
 }
