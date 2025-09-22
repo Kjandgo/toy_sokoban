@@ -54,12 +54,12 @@ public class Ranking implements Serializable,Comparable<Ranking> {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Ranking ranking = (Ranking) o;
-        return rankingNo == ranking.rankingNo;
+        return rankingNo == ranking.rankingNo && highestStageNo == ranking.highestStageNo && Objects.equals(name, ranking.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(rankingNo);
+        return Objects.hash(rankingNo, name, highestStageNo);
     }
 
     @Override
